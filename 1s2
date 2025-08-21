@@ -1,0 +1,45 @@
+# Simulação do Circuito de Votação do Comitê Diretor (Unidade 1, Seção 2)
+
+print("Simulação de Votação do Comitê Diretor")
+print("Regra: Diretor Executivo (A) deve votar a favor E obter maioria (B OU C votam a favor)")
+print("-" * 60)
+
+# Definindo as possibilidades de votos (0 para contra, 1 para a favor)
+# A = Diretor Executivo
+# B = Vice-Diretor Financeiro
+# C = Vice-Diretor de Relações Institucionais
+
+# Todas as 8 combinações possíveis de votos (2^3)
+combinacoes_votos = [
+    (1, 1, 1), # A=1, B=1, C=1
+    (1, 1, 0), # A=1, B=1, C=0
+    (1, 0, 1), # A=1, B=0, C=1
+    (1, 0, 0), # A=1, B=0, C=0
+    (0, 1, 1), # A=0, B=1, C=1
+    (0, 1, 0), # A=0, B=1, C=0
+    (0, 0, 1), # A=0, B=0, C=1
+    (0, 0, 0)  # A=0, B=0, C=0
+]
+
+print("A | B | C | Projeto Aprovado? | Luz")
+print("-----------------------------------")
+
+for a_vote, b_vote, c_vote in combinacoes_votos:
+    # A lógica booleana conforme a regra do livro: A AND (B OR C)
+    # Em Python, 1 é True e 0 é False para operações booleanas.
+    diretor_executivo_favor = bool(a_vote)
+    maioria_vice_diretores = bool(b_vote) or bool(c_vote)
+
+    # Condição final de aprovação do projeto
+    projeto_aprovado = diretor_executivo_favor and maioria_vice_diretores
+
+    # Determinando o status da luz
+    luz_status = "Acesa (1)" if projeto_aprovado else "Apagada (0)"
+
+    print(f"{a_vote} | {b_vote} | {c_vote} | {projeto_aprovado:^18} | {luz_status}")
+
+print("-" * 60)
+print("\nObservações:")
+print("A, B, C representam os votos dos membros do comitê (1 = a favor, 0 = contra).")
+print("A coluna 'Projeto Aprovado?' mostra o resultado booleano da lógica: A AND (B OR C).")
+print("A coluna 'Luz' indica se a luz do circuito está acesa (projeto aprovado) ou apagada (projeto não aprovado).")
